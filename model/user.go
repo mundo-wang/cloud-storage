@@ -1,11 +1,11 @@
 package model
 
 import (
-	"file-store/model/mysql"
+	"cloud-storage/model/mysql"
 	"time"
 )
 
-//用户表
+// 用户表
 type User struct {
 	Id           int
 	OpenId       string
@@ -15,7 +15,7 @@ type User struct {
 	ImagePath    string
 }
 
-//创建用户并新建文件仓库
+// 创建用户并新建文件仓库
 func CreateUser(openId, username, image string) {
 	user := User{
 		OpenId:       openId,
@@ -37,7 +37,7 @@ func CreateUser(openId, username, image string) {
 	mysql.DB.Save(&user)
 }
 
-//查询判断用户是否存在
+// 查询判断用户是否存在
 func QueryUserExists(openId string) bool {
 	var user User
 	mysql.DB.Find(&user, "open_id = ?", openId)
@@ -47,7 +47,7 @@ func QueryUserExists(openId string) bool {
 	return true
 }
 
-//根据openId查询用户
+// 根据openId查询用户
 func GetUserInfo(openId interface{}) (user User) {
 	mysql.DB.Find(&user, "open_id = ?", openId)
 	return

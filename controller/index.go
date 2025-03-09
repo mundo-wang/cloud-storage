@@ -1,12 +1,12 @@
 package controller
 
 import (
-	"file-store/model"
+	"cloud-storage/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func Index(c *gin.Context)  {
+func Index(c *gin.Context) {
 	openId, _ := c.Get("openId")
 	//获取用户信息
 	user := model.GetUserInfo(openId)
@@ -20,11 +20,11 @@ func Index(c *gin.Context)  {
 	fileDetailUse := model.GetFileDetailUse(user.FileStoreId)
 
 	c.HTML(http.StatusOK, "index.html", gin.H{
-		"user": user,
-		"currIndex": "active",
-		"userFileStore": userFileStore,
-		"fileCount": fileCount,
+		"user":            user,
+		"currIndex":       "active",
+		"userFileStore":   userFileStore,
+		"fileCount":       fileCount,
 		"fileFolderCount": fileFolderCount,
-		"fileDetailUse": fileDetailUse,
+		"fileDetailUse":   fileDetailUse,
 	})
 }

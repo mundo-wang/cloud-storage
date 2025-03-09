@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"file-store/model"
+	"cloud-storage/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

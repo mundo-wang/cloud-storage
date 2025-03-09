@@ -1,8 +1,8 @@
 package router
 
 import (
-	"file-store/controller"
-	"file-store/middleware"
+	"cloud-storage/controller"
+	"cloud-storage/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,7 +14,6 @@ func SetupRoute() *gin.Engine {
 	router.GET("/callbackQQ", controller.GetQQToken)
 	router.GET("/file/share", controller.SharePass)
 	router.GET("/file/shareDownload", controller.DownloadShareFile)
-
 
 	cloud := router.Group("cloud")
 	cloud.Use(middleware.CheckLogin)

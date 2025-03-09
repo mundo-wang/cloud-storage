@@ -1,14 +1,14 @@
 package controller
 
 import (
-	"file-store/lib"
-	"file-store/model"
+	"cloud-storage/lib"
+	"cloud-storage/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 )
 
-//全部文件页面
+// 全部文件页面
 func Files(c *gin.Context) {
 	openId, _ := c.Get("openId")
 	fId := c.DefaultQuery("fId", "0")
@@ -45,7 +45,7 @@ func Files(c *gin.Context) {
 	})
 }
 
-//处理新建文件夹
+// 处理新建文件夹
 func AddFolder(c *gin.Context) {
 	openId, _ := c.Get("openId")
 	user := model.GetUserInfo(openId)
@@ -79,7 +79,7 @@ func DownloadFile(c *gin.Context) {
 	c.Data(http.StatusOK, "application/octect-stream", fileData)
 }
 
-//删除文件
+// 删除文件
 func DeleteFile(c *gin.Context) {
 	openId, _ := c.Get("openId")
 	user := model.GetUserInfo(openId)
@@ -96,7 +96,7 @@ func DeleteFile(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, "/cloud/files?fid="+folderId)
 }
 
-//删除文件夹
+// 删除文件夹
 func DeleteFileFolder(c *gin.Context) {
 	fId := c.DefaultQuery("fId", "")
 	if fId == "" {
@@ -111,7 +111,7 @@ func DeleteFileFolder(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, "/cloud/files?fId="+strconv.Itoa(folderInfo.ParentFolderId))
 }
 
-//修改文件夹名
+// 修改文件夹名
 func UpdateFileFolder(c *gin.Context) {
 	fileFolderName := c.PostForm("fileFolderName")
 	fileFolderId := c.PostForm("fileFolderId")

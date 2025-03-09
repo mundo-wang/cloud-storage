@@ -1,15 +1,15 @@
 package middleware
 
 import (
-	"file-store/lib"
-	"file-store/model"
+	"cloud-storage/lib"
+	"cloud-storage/model"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-//检查是否登录中间件
-func CheckLogin(c *gin.Context)  {
+// 检查是否登录中间件
+func CheckLogin(c *gin.Context) {
 	token, err := c.Cookie("Token")
 	if err != nil {
 		fmt.Println("cookie", err.Error())

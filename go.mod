@@ -1,4 +1,4 @@
-module file-store
+module cloud-storage
 
 go 1.21
 

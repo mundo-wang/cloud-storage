@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"file-store/lib"
-	"file-store/model"
+	"cloud-storage/lib"
+	"cloud-storage/model"
 	"github.com/gin-gonic/gin"
 	"github.com/lifei6671/gocaptcha"
 	"net/http"
@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-//创建分享文件
+// 创建分享文件
 func ShareFile(c *gin.Context) {
 	openId, _ := c.Get("openId")
 	//获取用户信息
@@ -30,7 +30,7 @@ func ShareFile(c *gin.Context) {
 	})
 }
 
-//分享文件页面
+// 分享文件页面
 func SharePass(c *gin.Context) {
 	f := c.Query("f")
 
@@ -48,7 +48,7 @@ func SharePass(c *gin.Context) {
 	})
 }
 
-//下载分享文件
+// 下载分享文件
 func DownloadShareFile(c *gin.Context) {
 	fileId := c.Query("id")
 	code := c.Query("code")
@@ -58,7 +58,7 @@ func DownloadShareFile(c *gin.Context) {
 
 	//校验提取码
 	if ok := model.VerifyShareCode(fileId, strings.ToLower(code)); !ok {
-		c.Redirect(http.StatusMovedPermanently, "/file/share?f=" + hash)
+		c.Redirect(http.StatusMovedPermanently, "/file/share?f="+hash)
 		return
 	}
 

@@ -1,7 +1,7 @@
 package mysql
 
 import (
-	"file-store/lib"
+	"cloud-storage/lib"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"

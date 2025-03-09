@@ -1,10 +1,10 @@
 package controller
 
 import (
+	"cloud-storage/lib"
+	"cloud-storage/model"
+	"cloud-storage/util"
 	"encoding/json"
-	"file-store/lib"
-	"file-store/model"
-	"file-store/util"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
@@ -20,18 +20,18 @@ type PrivateInfo struct {
 	OpenId       string `json:"openid"`
 }
 
-//登录成功获取的QQ用户信息
+// 登录成功获取的QQ用户信息
 type QUserInfo struct {
 	Nickname    string
 	FigureUrlQQ string `json:"figureurl_qq"`
 }
 
-//登录页
+// 登录页
 func Login(c *gin.Context) {
 	c.HTML(http.StatusOK, "login.html", nil)
 }
 
-//处理登录
+// 处理登录
 func HandlerLogin(c *gin.Context) {
 	conf := lib.LoadServerConfig()
 	state := "xxxxxxx"
@@ -40,7 +40,7 @@ func HandlerLogin(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, url)
 }
 
-//获取access_token
+// 获取access_token
 func GetQQToken(c *gin.Context) {
 	conf := lib.LoadServerConfig()
 	code := c.Query("code")
@@ -66,7 +66,7 @@ func GetQQToken(c *gin.Context) {
 	GetOpenId(info, c)
 }
 
-//获取QQ openId
+// 获取QQ openId
 func GetOpenId(info *PrivateInfo, c *gin.Context) {
 	resp, err := http.Get(fmt.Sprintf("%s?access_token=%s", "https://graph.qq.com/oauth2.0/me", info.AccessToken))
 	if err != nil {
@@ -82,7 +82,7 @@ func GetOpenId(info *PrivateInfo, c *gin.Context) {
 	GetUserInfo(info, c)
 }
 
-//获取QQ用户信息
+// 获取QQ用户信息
 func GetUserInfo(info *PrivateInfo, c *gin.Context) {
 	conf := lib.LoadServerConfig()
 	params := url.Values{}
@@ -103,7 +103,7 @@ func GetUserInfo(info *PrivateInfo, c *gin.Context) {
 	LoginSucceed(string(bs), info.OpenId, c)
 }
 
-//登录成功 处理登录
+// 登录成功 处理登录
 func LoginSucceed(userInfo, openId string, c *gin.Context) {
 	var qUserInfo QUserInfo
 	//将数据转为结构体
@@ -132,8 +132,8 @@ func LoginSucceed(userInfo, openId string, c *gin.Context) {
 	}
 }
 
-//退出登录
-func Logout(c *gin.Context)  {
+// 退出登录
+func Logout(c *gin.Context) {
 	token, err := c.Cookie("Token")
 	if err != nil {
 		fmt.Println("cookie", err.Error())

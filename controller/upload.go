@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"file-store/lib"
-	"file-store/model"
-	"file-store/util"
+	"cloud-storage/lib"
+	"cloud-storage/model"
+	"cloud-storage/util"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"io"
@@ -11,7 +11,7 @@ import (
 	"os"
 )
 
-//上传文件页面
+// 上传文件页面
 func Upload(c *gin.Context) {
 	openId, _ := c.Get("openId")
 	fId := c.DefaultQuery("fId", "0")
@@ -36,11 +36,11 @@ func Upload(c *gin.Context) {
 		"fileFolders":      fileFolders,
 		"parentFolder":     parentFolder,
 		"currentAllParent": currentAllParent,
-		"fileDetailUse": fileDetailUse,
+		"fileDetailUse":    fileDetailUse,
 	})
 }
 
-//处理上传文件
+// 处理上传文件
 func HandlerUpload(c *gin.Context) {
 	openId, _ := c.Get("openId")
 	//获取用户信息

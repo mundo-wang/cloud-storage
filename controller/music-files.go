@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"file-store/model"
+	"cloud-storage/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -20,7 +20,7 @@ func MusicFiles(c *gin.Context) {
 		"fileDetailUse": fileDetailUse,
 		"musicFiles":    musicFiles,
 		"musicCount":    len(musicFiles),
-		"currMusic":       "active",
+		"currMusic":     "active",
 		"currClass":     "active",
 	})
 }

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"file-store/lib"
-	"file-store/model/mysql"
-	"file-store/router"
+	"cloud-storage/lib"
+	"cloud-storage/model/mysql"
+	"cloud-storage/router"
 	"log"
 )
 
@@ -16,7 +16,6 @@ func main() {
 
 	r.LoadHTMLGlob("view/*")
 	r.Static("/static", "./static")
-
 
 	if err := r.Run(":80"); err != nil {
 		log.Fatal("服务器启动失败...")

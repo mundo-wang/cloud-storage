@@ -1,15 +1,15 @@
 package model
 
 import (
-	"file-store/model/mysql"
-	"file-store/util"
+	"cloud-storage/model/mysql"
+	"cloud-storage/util"
 	"path"
 	"strconv"
 	"strings"
 	"time"
 )
 
-//文件表
+// 文件表
 type MyFile struct {
 	Id             int
 	FileName       string //文件名
@@ -25,7 +25,7 @@ type MyFile struct {
 	Postfix        string //文件后缀
 }
 
-//添加文件数据
+// 添加文件数据
 func CreateFile(filename, fileHash string, fileSize int64, fId string, fileStoreId int) {
 	var sizeStr string
 	//获取文件后缀
@@ -56,13 +56,13 @@ func CreateFile(filename, fileHash string, fileSize int64, fId string, fileStore
 	mysql.DB.Create(&myFile)
 }
 
-//获取用户的文件
+// 获取用户的文件
 func GetUserFile(parentId string, storeId int) (files []MyFile) {
 	mysql.DB.Find(&files, "file_store_id = ? and parent_folder_id = ?", storeId, parentId)
 	return
 }
 
-//文件上传成功减去相应容量
+// 文件上传成功减去相应容量
 func SubtractSize(size int64, fileStoreId int) {
 	var fileStore FileStore
 	mysql.DB.First(&fileStore, fileStoreId)
@@ -72,14 +72,14 @@ func SubtractSize(size int64, fileStoreId int) {
 	mysql.DB.Save(&fileStore)
 }
 
-//获取用户文件数量
+// 获取用户文件数量
 func GetUserFileCount(fileStoreId int) (fileCount int) {
 	var file []MyFile
 	mysql.DB.Find(&file, "file_store_id = ?", fileStoreId).Count(&fileCount)
 	return
 }
 
-//获取用户文件使用明细情况
+// 获取用户文件使用明细情况
 func GetFileDetailUse(fileStoreId int) map[string]int64 {
 	var files []MyFile
 	var (
@@ -111,13 +111,13 @@ func GetFileDetailUse(fileStoreId int) map[string]int64 {
 	return fileDetailUseMap
 }
 
-//根据文件类型获取文件
+// 根据文件类型获取文件
 func GetTypeFile(fileType, fileStoreId int) (files []MyFile) {
 	mysql.DB.Find(&files, "file_store_id = ? and type = ?", fileStoreId, fileType)
 	return
 }
 
-//判断当前文件夹是否有同名文件
+// 判断当前文件夹是否有同名文件
 func CurrFileExists(fId, filename string) bool {
 	var file MyFile
 	//获取文件后缀
@@ -133,7 +133,7 @@ func CurrFileExists(fId, filename string) bool {
 	return true
 }
 
-//通过hash判断文件是否已上传过oss
+// 通过hash判断文件是否已上传过oss
 func FileOssExists(fileHash string) bool {
 	var file MyFile
 	mysql.DB.Find(&file, "file_hash = ?", fileHash)
@@ -143,13 +143,13 @@ func FileOssExists(fileHash string) bool {
 	return true
 }
 
-//通过fileId获取文件信息
+// 通过fileId获取文件信息
 func GetFileInfo(fId string) (file MyFile) {
 	mysql.DB.First(&file, fId)
 	return
 }
 
-//文件下载次数+1
+// 文件下载次数+1
 func DownloadNumAdd(fId string) {
 	var file MyFile
 	mysql.DB.First(&file, fId)
@@ -157,7 +157,7 @@ func DownloadNumAdd(fId string) {
 	mysql.DB.Save(&file)
 }
 
-//删除数据库文件数据
+// 删除数据库文件数据
 func DeleteUserFile(fId, folderId string, storeId int) {
 	mysql.DB.Where("id = ? and file_store_id = ? and parent_folder_id = ?", fId, storeId, folderId).Delete(MyFile{})
 }
