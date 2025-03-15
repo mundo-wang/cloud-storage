@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-//SHA256生成哈希值
+// SHA256生成哈希值
 func GetSHA256HashCode(file *os.File) string {
 	//创建一个基于SHA256算法的hash.Hash接口的对象
 	hash := sha256.New()
@@ -30,7 +30,7 @@ func EncodeMd5(data string) string {
 	return hex.EncodeToString(h.Sum(nil))
 }
 
-//判断文件后缀获取类型id
+// 判断文件后缀获取类型id
 func GetFileTypeInt(filePrefix string) int {
 	filePrefix = strings.ToLower(filePrefix)
 	if filePrefix == ".doc" || filePrefix == ".docx" || filePrefix == ".txt" || filePrefix == ".pdf" {
@@ -49,7 +49,7 @@ func GetFileTypeInt(filePrefix string) int {
 	return 5
 }
 
-//将body中=号格式的字符串转为map
+// 将body中=号格式的字符串转为map
 func ConvertToMap(str string) map[string]string {
 	var resultMap = make(map[string]string)
 	values := strings.Split(str, "&")

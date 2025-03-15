@@ -9,7 +9,7 @@ import (
 
 var Cfg *ini.File
 
-//服务端配置数据结构
+// 服务端配置数据结构
 type ServerConfig struct {
 	RunMode         string
 	HTTPPort        int
@@ -33,7 +33,7 @@ type ServerConfig struct {
 	BucketName      string
 }
 
-//加载服务端配置
+// 加载服务端配置
 func LoadServerConfig() ServerConfig {
 
 	var err error
