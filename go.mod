@@ -1,6 +1,6 @@
 module cloud-storage
 
-go 1.21
+go 1.21.8
 
 require github.com/mundo-wang/wtool v1.0.3
 
